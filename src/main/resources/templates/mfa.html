@@ -1,0 +1,106 @@
+<!-- Generated with https://v0.dev/ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Code</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+
+        .verification-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .verification-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-size: 14px;
+            text-align: left;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            outline: none;
+            width: 100%;
+        }
+
+        input::placeholder {
+            color: #aaa;
+        }
+
+        .verify-button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .verify-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div class="verification-container">
+    <h1>Verification Required</h1>
+    <p>Please enter the verification code sent to your phone</p>
+    <!-- Error Message -->
+    <div th:if="${param.error}" class="error-message" id="error-message">Invalid verification code. Please try again.</div>
+    <form name="mfa_from" method="post" th:action="@{/mfa}" class="verification-form">
+        <label for="code">Verification Code</label>
+        <input type="text" id="code" name="mfa_code" placeholder="Enter your verification code" required>
+
+        <button id="submit-button" type="submit" class="verify-button">Verify</button>
+    </form>
+</div>
+</body>
+</html>
