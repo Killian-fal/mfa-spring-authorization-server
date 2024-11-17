@@ -3,6 +3,11 @@
 This project is a simple example of how to implement MFA in a Spring Authorization Server.
 If you want to know more about the project, how to implement it and the research, you can read the [PROJECT.md](PROJECT.md) file.
 
+## Does the solution work with an classic Spring Security application without Spring Authorization Server?
+
+The answer is yes! Since Spring Authorization Server is based on Spring Security and the solution is implemented before the OAuth2 process,
+it can be fully implemented in a regular Spring Security project.
+
 ## How to run the project ?
 
 Else, you can run the project on your own machine. You can use the following command.

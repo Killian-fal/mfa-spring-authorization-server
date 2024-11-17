@@ -81,11 +81,6 @@ In the case of this demonstration (this github repo), the following diagram summ
 
 <img src="media/demo_diagram.png" alt="Demon diagram" style="max-height: 350px; width: auto;">
 
-## Does the solution work with an classic Spring Security application without Spring Authorization Server?
-
-The answer is yes! Since Spring Authorization Server is based on Spring Security and the solution is implemented before the OAuth2 process,
-it can be fully implemented in a regular Spring Security project.
-
 ## How to implement a new MFA process? <a id="implement-section"></a>
 
 In this demo, there are already 2 examples(MFAAuthenticationProcess and QuestionAuthenticationProcess), but here's how to add a new process:
