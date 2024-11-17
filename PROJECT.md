@@ -7,7 +7,7 @@ Spring does not provide a ready-to-use solution, and the explanations available 
 After analyzing the Spring Security (and the Spring Authorization Server) source code, I designed a customized solution.
 Before going into detail, here's a simplified diagram showing the classic authentication flow without MFA:
 
-<img src="media/without_mfa.png" alt="Without MFA" style="max-height: 700px; width: auto;">
+<img src="media/without_mfa.png" alt="Without MFA" style="max-height: 350px; width: auto;">
 
 ### Existing solutions
 The majority of existing solutions available on github propose redirecting to an MFA process from a success handler
@@ -37,7 +37,7 @@ The implementation is explained in more detail in this [part](#implement-section
 
 Here's a simplified diagram showing the authentication flow with MFA:
 
-<img src="media/with_mfa.png" alt="With MFA" style="max-height: 700px; width: auto;">
+<img src="media/with_mfa.png" alt="With MFA" style="max-height: 350px; width: auto;">
 
 ### Solution explanation
 As you can see, the beginning of the flow is identical to the classic flow, but the steps are modified starting from the `DaoAuthenticationProvider`.
@@ -79,7 +79,7 @@ Finally, this solution makes it possible to manage complex sequences quickly, cl
 
 In the case of this demonstration (this github repo), the following diagram summarizes the processes implemented.
 
-<img src="media/demo_diagram.png" alt="Demon diagram" style="max-height: 700px; width: auto;">
+<img src="media/demo_diagram.png" alt="Demon diagram" style="max-height: 350px; width: auto;">
 
 ## Does the solution work with an classic Spring Security application without Spring Authorization Server?
 

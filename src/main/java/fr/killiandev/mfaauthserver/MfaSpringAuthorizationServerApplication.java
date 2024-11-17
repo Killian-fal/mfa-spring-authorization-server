@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MfaauthserverApplication {
+public class MfaSpringAuthorizationServerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MfaauthserverApplication.class, args);
+        SpringApplication.run(MfaSpringAuthorizationServerApplication.class, args);
     }
 }

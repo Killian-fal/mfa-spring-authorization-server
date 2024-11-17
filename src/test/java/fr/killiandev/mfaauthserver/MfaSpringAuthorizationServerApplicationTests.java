@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-class MfaauthserverApplicationTests {
+class MfaSpringAuthorizationServerApplicationTests {
 
     private static final String QUERY =
             "response_type=code&client_id=client&scope=openid&redirect_uri=https://oauth.pstmn.io/v1/callback&code_challenge=N4MAVFaaMVGKul-IRn59dmZ6JI62MmEN_pDRYMiNxTg&code_challenge_method=S256";
