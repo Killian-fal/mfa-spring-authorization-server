@@ -1,17 +1,15 @@
 package fr.killiandev.mfaauthserver.auth.provider;
 
-import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-@AllArgsConstructor
 public class NoCompletedAuthenticationProvider extends DaoAuthenticationProvider {
 
-    public NoCompletedAuthenticationProvider(PasswordEncoder passwordEncoder) {
-        super(passwordEncoder);
+    public NoCompletedAuthenticationProvider(UserDetailsService userDetailsService) {
+        super(userDetailsService);
     }
 
     @Override

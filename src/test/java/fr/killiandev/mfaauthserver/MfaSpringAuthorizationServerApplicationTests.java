@@ -8,9 +8,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.web.util.UrlUtils;
 import org.springframework.test.web.servlet.MockMvc;
@@ -26,7 +26,7 @@ class MfaSpringAuthorizationServerApplicationTests {
     private static final String URL =
             UrlUtils.buildFullRequestUrl("http", "localhost", 9000, "/oauth2/authorize", QUERY);
 
-    private static final String FINAL_LOGIN_EXPECTED_URL = String.format("**/oauth2/authorize?%s&continue", QUERY);
+    private static final String FINAL_LOGIN_EXPECTED_URL = "**/oauth2/authorize?%s&continue".formatted(QUERY);
     private static final String FINAL_EXPECTED_URL = "https://oauth.pstmn.io/v1/*";
 
     @Autowired
@@ -38,7 +38,7 @@ class MfaSpringAuthorizationServerApplicationTests {
     @Test
     void test_nominal_case() throws Exception {
         MockHttpSession session = new MockHttpSession();
-        sendInitialRequest(session, "**/login");
+        sendInitialRequest(session, "/login");
         sendLoginRequest(session);
         sendMfaRequest(session, "1234", "**/question");
         sendQuestionRequest(session, "yes", FINAL_LOGIN_EXPECTED_URL);
@@ -47,7 +47,7 @@ class MfaSpringAuthorizationServerApplicationTests {
     @Test
     void test_skip_login_process_case() throws Exception {
         MockHttpSession session = new MockHttpSession();
-        sendInitialRequest(session, "**/login");
+        sendInitialRequest(session, "/login");
         sendLoginRequest(session);
         sendMfaRequest(session, "1234", "**/question");
         sendQuestionRequest(session, "yes", FINAL_LOGIN_EXPECTED_URL);
@@ -58,7 +58,7 @@ class MfaSpringAuthorizationServerApplicationTests {
     @Test
     void test_mfa_error_case() throws Exception {
         MockHttpSession session = new MockHttpSession();
-        sendInitialRequest(session, "**/login");
+        sendInitialRequest(session, "/login");
         sendLoginRequest(session);
         sendMfaRequest(session, "1", "/mfa?error");
         sendMfaRequest(session, "1234", "**/question");
@@ -68,7 +68,7 @@ class MfaSpringAuthorizationServerApplicationTests {
     @Test
     void test_question_error_case() throws Exception {
         MockHttpSession session = new MockHttpSession();
-        sendInitialRequest(session, "**/login");
+        sendInitialRequest(session, "/login");
         sendLoginRequest(session);
         sendMfaRequest(session, "1234", "**/question");
         sendQuestionRequest(session, "no", "/question?error");
@@ -78,11 +78,11 @@ class MfaSpringAuthorizationServerApplicationTests {
     @Test
     void test_skip_by_get_case() throws Exception {
         MockHttpSession session = new MockHttpSession();
-        sendInitialRequest(session, "**/login");
+        sendInitialRequest(session, "/login");
         sendLoginRequest(session);
 
         // user is in mfa view and try to skip mfa process to go to question view
-        mockMvc.perform(get(String.format("http://localhost:%s/question", port)).session(session))
+        mockMvc.perform(get("http://localhost:%s/question".formatted(port)).session(session))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(findBestMatcher("/mfa"));
 
@@ -93,7 +93,7 @@ class MfaSpringAuthorizationServerApplicationTests {
     @Test
     void test_skip_by_post_case() throws Exception {
         MockHttpSession session = new MockHttpSession();
-        sendInitialRequest(session, "**/login");
+        sendInitialRequest(session, "/login");
         sendLoginRequest(session);
 
         // skip the mfa process
@@ -110,7 +110,7 @@ class MfaSpringAuthorizationServerApplicationTests {
     }
 
     private void sendLoginRequest(MockHttpSession session) throws Exception {
-        mockMvc.perform(post(String.format("http://localhost:%s/login", port))
+        mockMvc.perform(post("http://localhost:%s/login".formatted(port))
                         .session(session)
                         .with(csrf())
                         .param("username", "user")
@@ -120,7 +120,7 @@ class MfaSpringAuthorizationServerApplicationTests {
     }
 
     private void sendMfaRequest(MockHttpSession session, String code, String expectedUrl) throws Exception {
-        mockMvc.perform(post(String.format("http://localhost:%s/mfa", port))
+        mockMvc.perform(post("http://localhost:%s/mfa".formatted(port))
                         .session(session)
                         .with(csrf())
                         .param("mfa_code", code))
@@ -129,7 +129,7 @@ class MfaSpringAuthorizationServerApplicationTests {
     }
 
     private void sendQuestionRequest(MockHttpSession session, String answer, String expectedUrl) throws Exception {
-        mockMvc.perform(post(String.format("http://localhost:%s/question", port))
+        mockMvc.perform(post("http://localhost:%s/question".formatted(port))
                         .session(session)
                         .with(csrf())
                         .param("answer", answer))

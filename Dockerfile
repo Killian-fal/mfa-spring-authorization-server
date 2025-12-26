@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM openjdk:21-jdk-buster AS build
+FROM amazoncorretto:21-alpine-jdk AS build
 
 COPY . /home/gradle/
 WORKDIR /home/gradle

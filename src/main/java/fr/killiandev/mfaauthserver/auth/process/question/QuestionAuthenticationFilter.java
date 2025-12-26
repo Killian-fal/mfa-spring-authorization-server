@@ -4,19 +4,20 @@ import fr.killiandev.mfaauthserver.auth.handler.ChainedAuthenticationHandler;
 import fr.killiandev.mfaauthserver.auth.process.AbstractAuthenticationProcessFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 
 public class QuestionAuthenticationFilter extends AbstractAuthenticationProcessFilter {
 
     private static final String ANSWER_KEY = "answer";
-    private static final AntPathRequestMatcher DEFAULT_ANT_PATH_REQUEST_MATCHER =
-            new AntPathRequestMatcher("/question", "POST");
+    private static final PathPatternRequestMatcher DEFAULT_ANT_PATH_REQUEST_MATCHER =
+            PathPatternRequestMatcher.pathPattern(HttpMethod.POST, "/question");
 
     public QuestionAuthenticationFilter(
             AuthenticationManager authenticationManager, ChainedAuthenticationHandler chainedAuthenticationHandler) {
