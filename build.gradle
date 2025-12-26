@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.3.5'
-	id 'io.spring.dependency-management' version '1.1.6'
+	id 'org.springframework.boot' version '4.0.1'
+	id 'io.spring.dependency-management' version '1.1.7'
 	id 'com.diffplug.spotless' version '7.0.0.BETA4'
 }
 
@@ -32,16 +32,18 @@ spotless {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	implementation 'org.springframework.boot:spring-boot-starter-oauth2-authorization-server'
+	implementation "org.springframework.boot:spring-boot-starter-webmvc"
+	implementation "org.springframework.boot:spring-boot-starter-security"
+	implementation 'org.springframework.boot:spring-boot-starter-security-oauth2-authorization-server'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation "org.springframework.boot:spring-boot-starter-webmvc-test"
+	testImplementation "org.springframework.security:spring-security-test"
+	testImplementation 'org.springframework.boot:spring-boot-starter-security-oauth2-authorization-server-test'
 
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

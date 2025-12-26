@@ -30,8 +30,8 @@ public class AuthenticationConfiguration {
     public NoCompletedAuthenticationProvider customAuthenticationProvider(
             UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
         // here, we override the default DaoAuthenticationProvider to return a NoCompletedAuthenticationToken
-        NoCompletedAuthenticationProvider provider = new NoCompletedAuthenticationProvider(passwordEncoder);
-        provider.setUserDetailsService(userDetailsService);
+        NoCompletedAuthenticationProvider provider = new NoCompletedAuthenticationProvider(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder);
         return provider;
     }
 
