@@ -19,7 +19,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.authorization.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
@@ -41,14 +40,10 @@ public class SecurityConfiguration {
     @Bean
     @Order(1)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) {
-        OAuth2AuthorizationServerConfigurer authorizationServerConfigurer = new OAuth2AuthorizationServerConfigurer();
-
-        http.securityMatcher(authorizationServerConfigurer.getEndpointsMatcher())
-                .with(
-                        authorizationServerConfigurer,
-                        (authorizationServer) ->
-                                authorizationServer.oidc(Customizer.withDefaults()) // Enable OpenID Connect 1.0
-                        )
+        http.oauth2AuthorizationServer((authorizationServer) -> {
+                    http.securityMatcher(authorizationServer.getEndpointsMatcher());
+                    authorizationServer.oidc(Customizer.withDefaults()); // Enable OpenID Connect 1.0
+                })
                 .authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
                 // Redirect to the login page when not authenticated from the
                 // authorization endpoint
